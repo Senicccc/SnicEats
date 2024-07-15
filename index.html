@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SnicEats</title>
+    <link rel="icon" href="img/icon.png" />
+
+    <!-- ICONS -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!--ALPINE.JS-->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- APP -->
+    <script src="src/app.js" async></script>
+
+    <!--MidTrans-->
+    <script
+      type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-f0Im8VM77Rvj_yjA"
+    ></script>
+  </head>
+  <body>
+    <!-- Navbar start -->
+    <nav class="navbar" x-data>
+      <a href="#" class="navbar-logo">Snic<span>Eats</span></a>
+
+      <div class="navbar-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#menu">Menu</a>
+        <a href="#products">Product</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button"
+          ><i data-feather="shopping-cart"></i
+          ><span
+            class="quantity-badge"
+            x-show="$store.cart.quantity"
+            x-text="$store.cart.quantity"
+          ></span
+        ></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+
+      <!-- SEARCH FORM START -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="Find a Product" />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- SEARCH FORM ENDS -->
+
+      <!-- SHOPPING CART START -->
+
+      <div class="shopping-cart" x-data>
+        <template x-for="(item, index) in $store.cart.items" :key="index">
+          <div class="cart-item">
+            <img :src="`img/products/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button @click="$store.cart.remove(item.id)" id="remove">
+                  &minus;
+                </button>
+                <span x-text="item.quantity"></span>
+                <button id="add" @click="$store.cart.add(item)">&plus;</button>
+                &equals; <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">
+          Your cart is currently empty
+        </h4>
+        <h4 x-show="$store.cart.items.length">
+          Total : <span x-text="rupiah($store.cart.total)"></span>
+        </h4>
+
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form action="" id="checkoutForm">
+            <input
+              type="hidden"
+              name="items"
+              x-model="JSON.stringify($store.cart.items)"
+            />
+            <input
+              type="hidden"
+              name="total"
+              x-model="JSON.stringify($store.cart.total)"
+            />
+            <h5>Customer Detail</h5>
+
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" />
+            </label>
+            <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email" autocomplete="off" />
+            </label>
+            <label for="phone">
+              <span>Phone</span>
+              <input type="phone" name="phone" id="phone" />
+            </label>
+
+            <button
+              class="checkout-button disabled"
+              type="submit"
+              id="checkout-button"
+              value="checkout"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- SHOPPING CART ENDS -->
+    </nav>
+    <!-- NAVBAR ENDS -->
+
+    <!--HERO SECTION START-->
+    <section class="hero" id="home">
+      <div class="mask-container">
+        <main class="content">
+          <h1>Happiness <span> Fulfilled</span>.</h1>
+          <p>Please keep in mind that our foods contains happiness.</p>
+          <!-- <a href="#" class="cta">Beli Sekarang!</a> -->
+        </main>
+      </div>
+    </section>
+    <!--HERO SECTION ENDS-->
+
+    <!--ABOUT SECTION START-->
+    <section id="about" class="about">
+      <h2>About<span> Us</span></h2>
+      <div class="row">
+        <div class="about-img">
+          <img src="img/aboutus-bg.jpeg" alt="About Us" />
+        </div>
+        <div class="content">
+          <h3>How can we deliver happiness to you?</h3>
+          <p>
+            <br />
+            Sometimes you seek happiness for too far while happiness is right in
+            front of you.
+          </p>
+          <p>
+            We are fast food restaurant delivering happiness with delicious
+            food, friendly service, and a joyful atmosphere every day.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!--ABOUT SECTION ENDS-->
+
+    <!--MENU SECTION START-->
+    <section id="menu" class="menu">
+      <h2>Introducing,<br /><span> Our Top-Selling Menu</span></h2>
+      <p>Some of our best menu that deliver happiness at it's best.</p>
+      <div class="row">
+        <div class="menu-card">
+          <img
+            src="img/menu/menu1.jpeg"
+            alt="Triple Happy Burger"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">Triple Happy Burger</h3>
+          <p class="menu-card-price">IDR 75K</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/menu2.jpeg"
+            alt="Double Happy Burger"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">Double Happy Burger</h3>
+          <p class="menu-card-price">IDR 60K</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/menu3.jpeg"
+            alt="Bucket of Happiness"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">Bucket of Happiness</h3>
+          <p class="menu-card-price">IDR 100K</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/menu4.jpeg"
+            alt="Sixpack of Nuggets"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">Sixpack of Nuggets</h3>
+          <p class="menu-card-price">IDR 30K</p>
+        </div>
+        <div class="menu-card">
+          <img
+            src="img/menu/menu5.jpeg"
+            alt="Average French Fries"
+            class="menu-card-img"
+          />
+          <h3 class="menu-card-title">Average French Fries</h3>
+          <p class="menu-card-price">IDR 30K</p>
+        </div>
+      </div>
+    </section>
+    <!--MENU SECTION ENDS-->
+
+    <!--PRODUCTS SECTION START-->
+    <section class="products" id="products" x-data="products">
+      <h2><span>Our</span> Products</h2>
+      <p>Now, you can bring happiness to your lovely home.</p>
+
+      <div class="row">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="product-card">
+            <div class="product-icons">
+              <a href="#" @click.prevent="$store.cart.add(item)">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#shopping-cart" />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="item-detail-button"
+                data-target="#item-detail-modal-1"
+                ><svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#eye" /></svg
+              ></a>
+            </div>
+            <div class="product-image">
+              <img :src=`img/products/${item.img}` :alt="item.name" />
+            </div>
+            <div class="product-content">
+              <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+              </div>
+              <div class="product-price">
+                <span x-text="rupiah(item.price)"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+    <!--PRODUCTS SECTION ENDS-->
+
+    <!--CONTACT SECTION START-->
+
+    <section id="contact" class="contact">
+      <h2>Our<span> Contact</span></h2>
+      <p>Good news! Now, you can send us your message here.</p>
+
+      <div class="row">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253840.478949799!2d106.829518!3d-6.229746499999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta!5e0!3m2!1sen!2sid!4v1719759532218!5m2!1sen!2sid"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="map"
+        ></iframe>
+
+        <form action="">
+          <div class="input-group">
+            <i data-feather="user"></i>
+            <input type="text" placeholder="Name" />
+          </div>
+          <div class="input-group">
+            <i data-feather="mail"></i>
+            <input type="text" placeholder="Email" />
+          </div>
+          <div class="input-group">
+            <i data-feather="phone"></i>
+            <input type="text" placeholder="Phone Number" />
+          </div>
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <!--CONTACT SECTION ENDS-->
+
+    <!-- FOOTER START -->
+
+    <footer>
+      <div class="socials">
+        <a href="https://www.instagram.com/seniccc/"
+          ><i data-feather="instagram"></i
+        ></a>
+        <a href="#"><i data-feather="twitter"></i></a>
+        <a href="#"><i data-feather="facebook"></i></a>
+      </div>
+
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="credit">
+        <p>
+          This Website Created by
+          <a href="https://www.instagram.com/seniccc/">Seniccc</a> | &copy 2024
+        </p>
+      </div>
+    </footer>
+
+    <!-- FOOTER ENDS -->
+
+    <!-- MODAL BOX ITEM DETAIL START -->
+    <div class="modal" id="item-detail-modal-1">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/product1.jpeg" alt="Product 1" />
+          <div class="product-content">
+            <h3>Frozen Nuggets</h3>
+            <p>
+              Nuggets that you can cook and eat at your own lovely home. Made
+              from chicken, turned into happiness.
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 60K <span>IDR 80K</span></div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i><span>Add to cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="item-detail-modal-2">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/product2.jpeg" alt="Product 2" />
+          <div class="product-content">
+            <h3>Frozen French Fries</h3>
+            <p>
+              Give a room in your freezer for the french fries that can bring
+              happiness and lift up your mood.
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 50K <span>IDR 60K</span></div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i><span>Add to cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="item-detail-modal-3">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/product3.jpeg" alt="Product 3" />
+          <div class="product-content">
+            <h3>Box of Ice Cream</h3>
+            <p>
+              Wanna lift your mood as soon as possible? just grab our ice cream
+              and happiness preserved.
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">IDR 30K <span>IDR 60K</span></div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i><span>Add to cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="item-detail-modal-4">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/product4.jpeg" alt="Product 4" />
+          <div class="product-content">
+            <h3>Snic Soda Syrup</h3>
+            <p>
+              It's not just regular soda, it's happiness soda from SnicEats. One
+              bottle, thousands happiness!
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+            </div>
+            <div class="product-price">IDR 40K <span>IDR 65K</span></div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i><span>Add to cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL BOX ITEM DETAIL ENDS -->
+
+    <!-- FEATHER ICONS -->
+    <script>
+      feather.replace();
+    </script>
+
+    <!--JAVASCRIPT-->
+    <script src="script.js"></script>
+  </body>
+</html>
