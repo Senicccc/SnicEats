@@ -189,7 +189,7 @@ body {
   padding: 0 1.5rem;
   color: var(--bg);
   transition: 0.3s;
-  max-height: 100vh;
+  height: 100vh;
   overflow: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -319,7 +319,7 @@ body {
   mask-image: linear-gradient(rgba(39, 37, 31, 1) 88%, rgba(39, 37, 31, 0));
 }
 
-.hero .mask-container {
+/* .hero .mask-container {
   position: absolute;
   inset: 0;
   -webkit-mask-image: url(img/hero-svg.svg);
@@ -331,6 +331,7 @@ body {
   mask-size: cover;
   mask-position: center;
 }
+*/
 
 .hero .content {
   padding: 1.4rem 7%;
@@ -338,7 +339,6 @@ body {
   top: 85px;
   text-align: left;
   position: fixed;
-  /* max-width: 61rem; */
 }
 
 .hero .content h1 {
@@ -403,6 +403,7 @@ body {
 }
 
 .about h2 span,
+.about h3 span,
 .menu h2 span,
 .contact h2 span,
 .products h2 span {
@@ -422,6 +423,7 @@ body {
 
 .about .row .about-img img {
   margin-top: 1rem;
+  margin-left: 3rem;
   width: 90%;
   border: 3px solid var(--bg);
   border-radius: 5px;
@@ -434,9 +436,8 @@ body {
 }
 
 .about .row .content h3 {
-  margin-top: 0rem;
+  margin-top: 2rem;
   font-size: 2rem;
-  margin-bottom: 1rem;
 }
 
 .about .row .content p {
@@ -445,6 +446,8 @@ body {
   font-size: 1.5rem;
   font-weight: 100;
   line-height: 1.6;
+  max-width: 85%;
+  text-align: justify;
 }
 
 .about .row {
@@ -468,8 +471,8 @@ body {
 
 .menu h2 {
   margin-bottom: 1rem;
-  color: #ff4500;
-  text-shadow: 0px 0px 5px #638253;
+  color: var(--third);
+  text-shadow: 2px 1.5px 0 #7a7a7a;
 }
 
 .menu p,
@@ -610,8 +613,7 @@ body {
   text-align: left;
   font-size: 3rem;
   color: var(--third);
-  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.2),
-    1px 1px 1px rgba(0, 0, 0, 0.6);
+  text-shadow: 2px 1.5px 0 #7a7a7a;
 }
 
 .contact p {
