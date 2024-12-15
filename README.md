@@ -6,5 +6,6 @@ vercel: https://snic-eats.vercel.app/
 )
 
 # Image
-![SnicEats Home](https://raw.githubusercontent.com/Senicccc/SnicEats/main/Images/SnicEats-Hero.png)
+![SnicEats Home Page](https://raw.githubusercontent.com/Senicccc/SnicEats/main/Images/SnicEats-Hero.png)
+
 
